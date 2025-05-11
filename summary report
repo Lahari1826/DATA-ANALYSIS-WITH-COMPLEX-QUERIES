@@ -1,0 +1,21 @@
+Summary Report
+Highest Total Sales by Employee
+
+Employee: Bob (EmpID: 2)
+
+Total Sales: 5500.00
+
+Best Sales Month
+
+Month: March 2024
+
+Sales Amount: 5800.00
+
+Cumulative Sales
+
+Cumulative sales are calculated using the SUM() window function, providing a running total of sales per employee over time.
+
+Monthly Sales Leaders
+
+Sales leaders for each month are ranked using a Common Table Expression (CTE) and the RANK() window function, identifying top performers each month.
+
