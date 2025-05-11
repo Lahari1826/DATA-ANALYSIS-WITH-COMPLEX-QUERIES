@@ -1,0 +1,20 @@
+mysql> SELECT EmpID, TotalSales
+    -> FROM (
+    ->     SELECT EmpID, SUM(SaleAmount) AS TotalSales
+    ->     FROM Sales
+    ->     GROUP BY EmpID
+    -> ) AS Sub
+    -> WHERE TotalSales = (
+    ->     SELECT MAX(Total)
+    ->     FROM (
+    ->         SELECT SUM(SaleAmount) AS Total
+    ->         FROM Sales
+    ->         GROUP BY EmpID
+    ->     ) AS Totals
+    -> );
++-------+------------+
+| EmpID | TotalSales |
++-------+------------+
+|     2 |    5500.00 |
++-------+------------+
+1 row in set (0.00 sec)
