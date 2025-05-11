@@ -1,0 +1,16 @@
+mysql> WITH MonthlySales AS (
+    ->     SELECT
+    ->         DATE_FORMAT(SaleDate, '%Y-%m') AS SaleMonth,
+    ->         SUM(SaleAmount) AS TotalSales
+    ->     FROM Sales
+    ->     GROUP BY DATE_FORMAT(SaleDate, '%Y-%m')
+    -> )
+    -> SELECT * FROM MonthlySales ORDER BY SaleMonth;
++-----------+------------+
+| SaleMonth | TotalSales |
++-----------+------------+
+| 2024-01   |    4500.00 |
+| 2024-02   |    4000.00 |
+| 2024-03   |    5800.00 |
++-----------+------------+
+3 rows in set (0.01 sec)
