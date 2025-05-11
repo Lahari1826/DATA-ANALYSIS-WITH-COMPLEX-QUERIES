@@ -1,0 +1,24 @@
+mysql> WITH MonthlySalesByEmp AS (
+    ->     SELECT
+    ->         EmpID,
+    ->         DATE_FORMAT(SaleDate, '%Y-%m') AS SaleMonth,
+    ->         SUM(SaleAmount) AS TotalSales
+    ->     FROM Sales
+    ->     GROUP BY EmpID, DATE_FORMAT(SaleDate, '%Y-%m')
+    -> )
+    -> SELECT *,
+    ->        RANK() OVER (PARTITION BY SaleMonth ORDER BY TotalSales DESC) AS RankInMonth
+    -> FROM MonthlySalesByEmp;
++-------+-----------+------------+-------------+
+| EmpID | SaleMonth | TotalSales | RankInMonth |
++-------+-----------+------------+-------------+
+|     2 | 2024-01   |    2000.00 |           1 |
+|     3 | 2024-01   |    1500.00 |           2 |
+|     1 | 2024-01   |    1000.00 |           3 |
+|     3 | 2024-02   |    2200.00 |           1 |
+|     2 | 2024-02   |    1800.00 |           2 |
+|     4 | 2024-03   |    3000.00 |           1 |
+|     2 | 2024-03   |    1700.00 |           2 |
+|     1 | 2024-03   |    1100.00 |           3 |
++-------+-----------+------------+-------------+
+8 rows in set (0.01 sec)
